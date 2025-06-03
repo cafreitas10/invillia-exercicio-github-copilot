@@ -20,17 +20,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Novo bloco para exibir participantes
+        // Novo bloco para exibir participantes melhorado
         let participantsHTML = "";
         if (details.participants.length > 0) {
           participantsHTML = `
-            <p><strong>Participants:</strong></p>
-            <ul>
-              ${details.participants.map(email => `<li>${email}</li>`).join("")}
+            <p>
+              <strong>Participants (${details.participants.length}):</strong>
+            </p>
+            <ul style="margin-left: 20px; list-style-type: disc;">
+              ${details.participants
+                .map(
+                  (email, idx) =>
+                    `<li style="padding: 2px 0;"><span style="color: #3949ab; font-weight: 500;">${idx + 1}.</span> ${email}</li>`
+                )
+                .join("")}
             </ul>
           `;
         } else {
-          participantsHTML = `<p><strong>Participants:</strong> None yet</p>`;
+          participantsHTML = `<p><strong>Participants:</strong> <span style="color: #888;">None yet</span></p>`;
         }
 
         activityCard.innerHTML = `
